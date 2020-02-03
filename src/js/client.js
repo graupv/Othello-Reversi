@@ -22,7 +22,15 @@ const APP_STATE = {
     ],
 };
 
+const checkPlays = (state) => {
+    if (state.turn == 1) {
+        // horizontal -> vertical -> diag LTR -> diag RTL
 
+    } else {
+
+    }
+
+};
 
 const resetBoard = () => {
     APP_STATE.board = [
@@ -44,10 +52,11 @@ const jugar = () => {console.log('lmao')};
 const renderBoxContainer = (arrStates) => {
     const cont = document.createElement('div');
     cont.setAttribute('class','boxRow')
-    arrStates.forEach(element => {
+    let cajitas = arrStates.map((player, col) => renderBox(player, APP_STATE.board.indexOf(arrStates),col))
+    cajitas.forEach(element => {
         // appendChild(renderbox(element))
         // renderbox recibe el element==estado / color de la ficha
-        cont.appendChild(renderBox(element));
+        cont.appendChild(element);
     });
 
     return cont;
@@ -55,26 +64,29 @@ const renderBoxContainer = (arrStates) => {
 
 const renderBox = (
     player = 0,
+    row,
+    col
 ) => {
     const box = document.createElement('div');
     box.setAttribute('class', 'box');
     
     const checker = document.createElement('div');
     checker.setAttribute('class', 'checker');
+    console.log(player, row, col);
     
     if (player == 0) {
         checker.style.backgroundColor = 'transparent';
     } else if (player == 1) {
         checker.style.backgroundColor = 'chocolate';
-        checker.onclick = () => {console.log('lmao')};
+        // checker.onclick = () => {console.log('lmao')};
     } else if (player == 2) {
         checker.style.border = 'chocolate dashed';
     } else if (player == -2) {
         checker.style.border = 'navajowhite dashed';
-        checker.onclick = () => {console.log('notlmao')};
+        // checker.onclick = () => {console.log('notlmao')};
     } else {
         checker.style.backgroundColor = 'navajowhite';
-        checker.onclick = () => {console.log('lmao')};
+        // checker.onclick = () => {console.log('lmao')};
     }
 
     box.appendChild(checker);
@@ -122,7 +134,7 @@ const render = (mount, state) => {
     let { board } = state;
     // recibir board de state
     
-    let boxRows = board.map(renderBoxContainer);
+    let boxRows = board.map(renderBoxContainer,);
     // boxRows recibe un arreglo de contenedores de cajas con checkers
     boxRows.forEach(element => {
         contenedorBoard.appendChild(element);
