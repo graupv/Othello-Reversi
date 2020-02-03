@@ -2,22 +2,40 @@
 
 const APP_STATE = {
     turn: 1,
+    /* 
+    1 == p1
+    2 == possible play p1
+    
+    -1 == p2
+    -2 == possible play p2
+
+    */
     board: [
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-    // starting board
-        [0, 0, 0, 1, -1, 0, 0, 0],
-        [0, 0, 0, -1, 1, 0, 0, 0],
-
-        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, -2, 2, 0, 0, 0],
+        [0, 0, -2, 1, -1, 2, 0, 0],
+        [0, 0, 2, -1, 1, -2, 0, 0],
+        [0, 0, 0, 2, -2, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
     ],
 };
 
-const renderBoard = (state) => {
 
+
+const resetBoard = () => {
+    APP_STATE.board = [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 1, -1, 0, 0, 0],
+        [0, 0, 0, -1, 1, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+    ]
+    render(root, APP_STATE);
     
 };
 
@@ -48,8 +66,15 @@ const renderBox = (
         checker.style.backgroundColor = 'transparent';
     } else if (player == 1) {
         checker.style.backgroundColor = 'chocolate';
+        checker.onclick = () => {console.log('lmao')};
+    } else if (player == 2) {
+        checker.style.border = 'chocolate dashed';
+    } else if (player == -2) {
+        checker.style.border = 'navajowhite dashed';
+        checker.onclick = () => {console.log('notlmao')};
     } else {
         checker.style.backgroundColor = 'navajowhite';
+        checker.onclick = () => {console.log('lmao')};
     }
 
     box.appendChild(checker);
@@ -78,11 +103,27 @@ const render = (mount, state) => {
     contenedorBoard.style.height = '550px';
 
     mount.appendChild(contenedorBoard);
+    const scoreBoard = document.createElement('div');
+    scoreBoard.setAttribute('class', 'scoreBoardBox');
+    
+    const scoreBoardP1 = document.createElement('div');
+    scoreBoardP1.setAttribute('class', 'score1');
+    scoreBoardP1.innerText = 'P1 | Score: 2';
+
+    const scoreBoardP2 = document.createElement('div');
+    scoreBoardP2.innerText = 'P2 | Score: 2';
+    scoreBoardP2.setAttribute('class', 'score2');
+
+    scoreBoard.appendChild(scoreBoardP1);
+    scoreBoard.appendChild(scoreBoardP2);
+    contenedorBoard.appendChild(scoreBoard);
+
 
     let { board } = state;
     // recibir board de state
-    console.log(board, typeof(board));
+    
     let boxRows = board.map(renderBoxContainer);
+    // boxRows recibe un arreglo de contenedores de cajas con checkers
     boxRows.forEach(element => {
         contenedorBoard.appendChild(element);
     });

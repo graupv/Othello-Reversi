@@ -48,11 +48,41 @@ body {
 }
 
 .checker {
-    border-radius: 4rem;
+    border-radius: 4.5rem;
     background-color: transparent;
     width: 8rem;
     height: 8rem;
     margin: auto;
     margin-top: 2rem;
     /* border: dashed; */
+}
+
+.scoreBoardBox {
+    background-color: darkslategray;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    height: 16rem;
+    width: auto;
+    /* padding: 1 rem; */
+}
+
+.score1 {
+    font-size: 7rem;
+    color: chocolate;
+    font-weight: bold;
+    border: solid chocolate;
+    margin: auto;
+    padding: 2rem;
+}
+
+.score2 {
+    font-size: 7rem;
+    color: navajowhite;
+    font-weight: bold;
+    border: solid navajowhite;
+    margin: auto;
+    padding: 2rem;
 }
