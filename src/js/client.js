@@ -21,16 +21,6 @@ const APP_STATE = {
         [0, 0, 0, 0, 0, 0, 0, 0],
     ],
 
-    possiblePlays: [
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 1, -1, 0, 0, 0],
-        [0, 0, 0, -1, 1, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-    ],
     p1: 2,
     p2: 2,
 };
@@ -46,16 +36,7 @@ const checkPlays = (arr) => {
         };
         
     }
-    if () {
-        // horizontal -> vertical -> diag LTR -> diag RTL
-        // find first if any, if next/prev item is not self or otherplayer
-        // can't play
-
-
-    } else {
-
-    }
-
+   
 };
 
 const resetBoard = () => {
@@ -78,9 +59,14 @@ const jugar = () => {console.log('lmao')};
 const renderBoxContainer = (arrStates) => {
     const cont = document.createElement('div');
     cont.setAttribute('class','boxRow')
-    let cajitas = arrStates.map((player, col) => renderBox(player, APP_STATE.board.indexOf(arrStates),col))
+    let cajitas = arrStates.map(
+        (player, col) => renderBox(
+            player, 
+            APP_STATE.board.indexOf(arrStates),
+            col)
+            )
     cajitas.forEach(element => {
-        // appendChild(renderbox(element))
+        
         // renderbox recibe el element==estado / color de la ficha
         cont.appendChild(element);
     });
@@ -100,19 +86,14 @@ const renderBox = (
     checker.setAttribute('class', 'checker');
     // console.log(player, row, col);
     // check turn
-    if (APP_STATE.turn) {
-        // A or B
-        if (playable()) {
-
-        } else {
-            // APP_STATE.turn;
-        };
-    }
+  
     if (player == 0) {
         checker.style.backgroundColor = 'transparent';
         checker.onclick = () => {
+            // solo para ver si pinta, render se deberia llamar afuera de esto.
             APP_STATE.board[row][col] = 1;
             render(root, APP_STATE);
+            // si pinta.
         };
     } else if (player == 1) {
         checker.style.backgroundColor = 'chocolate';
@@ -183,6 +164,7 @@ const render = (mount, state) => {
     let boxRows = board.map(renderBoxContainer,);
     // boxRows recibe un arreglo de contenedores de cajas con checkers
     boxRows.forEach(element => {
+        // añadir a HTML
         contenedorBoard.appendChild(element);
     }); 
 
